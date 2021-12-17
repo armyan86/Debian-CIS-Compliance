@@ -1,0 +1,45 @@
+Include /etc/ssh/sshd_config.d/*.conf
+# Change SSH port for connection
+Port 12345
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+SyslogFacility AUTHPRIV
+LogLevel INFO
+LoginGraceTime 1m
+PermitRootLogin no
+MaxAuthTries 4
+MaxSessions 4
+AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
+HostbasedAuthentication no
+IgnoreRhosts yes
+PermitEmptyPasswords no
+# If the PasswordAuthentication value is no, then authorization is possible only by keys
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+GSSAPIAuthentication no
+GSSAPICleanupCredentials yes
+UsePAM yes
+AllowTcpForwarding no
+# Disable X11 forwarding unless there is an operational requirement to use X11 applications directly.
+X11Forwarding no
+PrintMotd no
+PermitUserEnvironment no
+ClientAliveInterval 300
+ClientAliveCountMax 0
+MaxStartups 10:30:60
+Banner /etc/issue.net
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+ciphers chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+macs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
+kexalgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
+hostkeyalgorithms ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+# List of users who are allowed to connect via SSH
+AllowUsers user1 user2 user3
+# List of groups that are allowed to connect via SSH
+AllowGroups group1 group2 group3
+# List of users who are prohibited from connecting via SSH
+DenyUsers user4 user5 user6
+# List of groups that are prohibited from connecting via SSH
+DenyGroups group4 group5 group6
